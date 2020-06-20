@@ -16,7 +16,7 @@ function generateToken(params = {}){
 
 router.post('/register', async(req, res) =>{
     const {email} = req.body;
-    
+
     try{
         if(await User.findOne({email})){
             return res.status(400).send({error: 'User already exists'});
@@ -69,14 +69,12 @@ router.post('/forgot_password', async(req, res) => {
             template: 'auth/forgot_password',
             context: {token}
         }, (err) =>{
-            console.log(err)
             if(err){
                 return res.status(400).send({error: 'Cannot send forgot password email'});
             }
             return res.send();
         })
     } catch(err) {
-        console.log(err)
         res.status(400).send({error: 'Erro on forgot password, try again'});
     }
 
